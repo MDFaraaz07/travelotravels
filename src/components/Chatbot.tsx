@@ -62,11 +62,40 @@ export const Chatbot = () => {
         throw new Error("Failed to get response");
       }
 
-      const data = await response.json();
+      const text = await response.text();
+      let botText = "I'm here to help!";
+
+      try {
+        // Try parsing as JSON
+        const data = JSON.parse(text);
+        botText = data.output || data.response || data.message || botText;
+      } catch {
+        // Check if it's NDJSON (streaming format)
+        if (text.includes('{"type":"item"')) {
+          const lines = text.split('\n').filter(line => line.trim());
+          const contentParts: string[] = [];
+          
+          lines.forEach(line => {
+            try {
+              const parsed = JSON.parse(line);
+              if (parsed.type === 'item' && parsed.content) {
+                contentParts.push(parsed.content);
+              }
+            } catch {}
+          });
+          
+          if (contentParts.length > 0) {
+            botText = contentParts.join('');
+          }
+        } else {
+          // Use plain text response
+          botText = text.trim() || botText;
+        }
+      }
       
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.response || data.message || "I'm here to help!",
+        text: botText,
         sender: "bot",
         timestamp: new Date(),
       };
