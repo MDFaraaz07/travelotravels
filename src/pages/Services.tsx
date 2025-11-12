@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import { 
   Plane, 
   Hotel, 
@@ -18,6 +20,12 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 const Services = () => {
+  const handleLearnMore = (serviceName: string) => {
+    toast.success(`${serviceName} - More details coming soon!`, {
+      description: "Contact us for immediate assistance with this service."
+    });
+  };
+
   const mainServices = [
     {
       icon: Plane,
@@ -116,6 +124,7 @@ const Services = () => {
               <Button
                 variant="outline"
                 className="w-full mt-6 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
+                onClick={() => handleLearnMore(service.title)}
               >
                 Learn More
               </Button>
@@ -198,6 +207,7 @@ const Services = () => {
           <Button
             size="lg"
             className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold transition-all duration-300 hover:scale-105"
+            onClick={() => window.location.href = '/contact'}
           >
             Get Started Today
           </Button>

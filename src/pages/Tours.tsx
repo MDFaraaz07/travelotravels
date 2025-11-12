@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Users, Star } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { BookingDialog } from "@/components/BookingDialog";
 import maldivesImage from "@/assets/maldives.jpg";
 import santoriniImage from "@/assets/santorini.jpg";
 import baliImage from "@/assets/bali.jpg";
@@ -12,6 +14,14 @@ import parisImage from "@/assets/paris.jpg";
 import dubaiImage from "@/assets/dubai.jpg";
 
 const Tours = () => {
+  const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState({ name: "", price: "" });
+
+  const handleBooking = (name: string, price: string) => {
+    setSelectedPackage({ name, price });
+    setBookingDialogOpen(true);
+  };
+
   const tourPackages = [
     {
       name: "Maldives Luxury Escape",
@@ -146,7 +156,10 @@ const Tours = () => {
                   </ul>
                 </div>
 
-                <Button className="w-full bg-gradient-ocean hover:shadow-glow transition-all duration-300">
+                <Button 
+                  className="w-full bg-gradient-ocean hover:shadow-glow transition-all duration-300"
+                  onClick={() => handleBooking(tour.name, tour.price)}
+                >
                   Book This Tour
                 </Button>
               </div>
@@ -169,6 +182,7 @@ const Tours = () => {
               size="lg"
               variant="outline"
               className="hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
+              onClick={() => handleBooking("Custom Package", "Contact for pricing")}
             >
               Request Custom Package
             </Button>
@@ -177,6 +191,13 @@ const Tours = () => {
       </section>
 
       <Footer />
+      
+      <BookingDialog
+        open={bookingDialogOpen}
+        onOpenChange={setBookingDialogOpen}
+        packageName={selectedPackage.name}
+        price={selectedPackage.price}
+      />
     </div>
   );
 };

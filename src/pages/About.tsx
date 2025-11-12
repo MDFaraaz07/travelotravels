@@ -31,10 +31,9 @@ const About = () => {
   ];
 
   const team = [
-    { name: "Sarah Johnson", role: "CEO & Founder", expertise: "Luxury Travel" },
-    { name: "Michael Chen", role: "Head of Operations", expertise: "Adventure Tours" },
-    { name: "Emma Williams", role: "Senior Travel Consultant", expertise: "Cultural Experiences" },
-    { name: "David Martinez", role: "Customer Success", expertise: "Customer Relations" },
+    { name: "Faraaz Khan", role: "CEO & Founder", expertise: "Luxury Travel Specialist" },
+    { name: "Kanishk Pandey", role: "Head of Operations", expertise: "Adventure Tours Expert" },
+    { name: "Armaan Khan", role: "Senior Travel Consultant", expertise: "Cultural Experiences" },
   ];
 
   return (
@@ -140,7 +139,7 @@ const About = () => {
             Passionate travel experts dedicated to creating your perfect journey
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {team.map((member, index) => (
               <Card
                 key={index}

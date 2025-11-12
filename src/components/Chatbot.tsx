@@ -10,7 +10,16 @@ interface Message {
   text: string;
   sender: "user" | "bot";
   timestamp: Date;
+  isStreaming?: boolean;
 }
+
+const quickReplies = [
+  "Popular destinations",
+  "Tour packages",
+  "Book a tour",
+  "Contact support",
+  "Travel tips"
+];
 
 export const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +33,32 @@ export const Chatbot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [streamingText, setStreamingText] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const streamText = (text: string) => {
+    setStreamingText("");
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      if (currentIndex < text.length) {
+        setStreamingText((prev) => prev + text[currentIndex]);
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        
+        // Add final message after streaming completes
+        const botMessage: Message = {
+          id: Date.now().toString(),
+          text: text,
+          sender: "bot",
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, botMessage]);
+        setStreamingText("");
+      }
+    }, 30); // Adjust speed here (lower = faster)
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -93,14 +127,8 @@ export const Chatbot = () => {
         }
       }
       
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: botText,
-        sender: "bot",
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, botMessage]);
+      // Use streaming animation for bot response
+      streamText(botText);
     } catch (error) {
       console.error("Chatbot error:", error);
       toast({
@@ -109,14 +137,7 @@ export const Chatbot = () => {
         variant: "destructive",
       });
 
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: "Sorry, I'm having trouble connecting right now. Please try again later.",
-        sender: "bot",
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, errorMessage]);
+      streamText("Sorry, I'm having trouble connecting right now. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -204,8 +225,39 @@ export const Chatbot = () => {
                 </div>
               </div>
             )}
+            {streamingText && (
+              <div className="flex justify-start animate-fade-in">
+                <div className="bg-muted text-foreground rounded-2xl rounded-bl-none px-4 py-2 max-w-[80%]">
+                  <p className="text-sm">{streamingText}<span className="animate-pulse">▋</span></p>
+                </div>
+              </div>
+            )}
           </div>
         </ScrollArea>
+
+        {/* Quick Replies */}
+        {messages.length === 1 && !isLoading && (
+          <div className="px-4 pb-2">
+            <p className="text-xs text-muted-foreground mb-2">Quick replies:</p>
+            <div className="flex flex-wrap gap-2">
+              {quickReplies.map((reply, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setInput(reply);
+                    setTimeout(() => sendMessage(), 100);
+                  }}
+                  className="text-xs hover:bg-primary hover:text-primary-foreground transition-all duration-300 animate-fade-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {reply}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Input */}
         <div className="p-4 border-t border-border bg-background/50 backdrop-blur-sm">
@@ -215,12 +267,12 @@ export const Chatbot = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message..."
-              disabled={isLoading}
+              disabled={isLoading || !!streamingText}
               className="flex-1"
             />
             <Button
               onClick={sendMessage}
-              disabled={!input.trim() || isLoading}
+              disabled={!input.trim() || isLoading || !!streamingText}
               size="icon"
               className="shrink-0"
             >

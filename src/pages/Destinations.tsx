@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, MapPin, Users } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { BookingDialog } from "@/components/BookingDialog";
 import heroImage from "@/assets/destinations-hero.jpg";
 import maldivesImage from "@/assets/maldives.jpg";
 import santoriniImage from "@/assets/santorini.jpg";
@@ -12,6 +14,14 @@ import parisImage from "@/assets/paris.jpg";
 import dubaiImage from "@/assets/dubai.jpg";
 
 const Destinations = () => {
+  const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState({ name: "", price: "" });
+
+  const handleBooking = (name: string, price: string) => {
+    setSelectedPackage({ name, price });
+    setBookingDialogOpen(true);
+  };
+
   const destinations = [
     {
       name: "Maldives",
@@ -141,8 +151,9 @@ const Destinations = () => {
                 <Button
                   variant="outline"
                   className="w-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
+                  onClick={() => handleBooking(destination.name, destination.price)}
                 >
-                  View Details
+                  View Details & Book
                 </Button>
               </div>
             </Card>
@@ -162,6 +173,7 @@ const Destinations = () => {
           <Button
             size="lg"
             className="bg-gradient-ocean hover:shadow-glow transition-all duration-300"
+            onClick={() => window.location.href = '/contact'}
           >
             Contact Our Travel Experts
           </Button>
@@ -169,6 +181,13 @@ const Destinations = () => {
       </section>
 
       <Footer />
+      
+      <BookingDialog
+        open={bookingDialogOpen}
+        onOpenChange={setBookingDialogOpen}
+        packageName={selectedPackage.name}
+        price={selectedPackage.price}
+      />
     </div>
   );
 };
