@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, MapPin, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { BookingDialog } from "@/components/BookingDialog";
 import heroImage from "@/assets/destinations-hero.jpg";
 import maldivesImage from "@/assets/maldives.jpg";
 import santoriniImage from "@/assets/santorini.jpg";
@@ -14,16 +13,11 @@ import parisImage from "@/assets/paris.jpg";
 import dubaiImage from "@/assets/dubai.jpg";
 
 const Destinations = () => {
-  const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState({ name: "", price: "" });
-
-  const handleBooking = (name: string, price: string) => {
-    setSelectedPackage({ name, price });
-    setBookingDialogOpen(true);
-  };
+  const navigate = useNavigate();
 
   const destinations = [
     {
+      id: "maldives",
       name: "Maldives",
       location: "Indian Ocean",
       image: maldivesImage,
@@ -33,6 +27,7 @@ const Destinations = () => {
       description: "Crystal clear waters, overwater villas, and pristine beaches await you in this tropical paradise."
     },
     {
+      id: "santorini",
       name: "Santorini",
       location: "Greece",
       image: santoriniImage,
@@ -42,6 +37,7 @@ const Destinations = () => {
       description: "Iconic white-washed buildings, stunning sunsets, and the Aegean Sea's crystal blue waters."
     },
     {
+      id: "bali",
       name: "Bali",
       location: "Indonesia",
       image: baliImage,
@@ -51,6 +47,7 @@ const Destinations = () => {
       description: "Ancient temples, lush rice terraces, and a rich cultural heritage in the Island of Gods."
     },
     {
+      id: "swiss-alps",
       name: "Swiss Alps",
       location: "Switzerland",
       image: swissAlpsImage,
@@ -60,6 +57,7 @@ const Destinations = () => {
       description: "Majestic mountain peaks, pristine alpine lakes, and charming villages nestled in valleys."
     },
     {
+      id: "paris",
       name: "Paris",
       location: "France",
       image: parisImage,
@@ -69,6 +67,7 @@ const Destinations = () => {
       description: "The City of Light offers romance, world-class art, iconic landmarks, and exquisite cuisine."
     },
     {
+      id: "dubai",
       name: "Dubai",
       location: "UAE",
       image: dubaiImage,
@@ -151,7 +150,7 @@ const Destinations = () => {
                 <Button
                   variant="outline"
                   className="w-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
-                  onClick={() => handleBooking(destination.name, destination.price)}
+                  onClick={() => navigate(`/destinations/${destination.id}`)}
                 >
                   View Details & Book
                 </Button>
@@ -181,13 +180,6 @@ const Destinations = () => {
       </section>
 
       <Footer />
-      
-      <BookingDialog
-        open={bookingDialogOpen}
-        onOpenChange={setBookingDialogOpen}
-        packageName={selectedPackage.name}
-        price={selectedPackage.price}
-      />
     </div>
   );
 };

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Users, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { BookingDialog } from "@/components/BookingDialog";
 import maldivesImage from "@/assets/maldives.jpg";
 import santoriniImage from "@/assets/santorini.jpg";
 import baliImage from "@/assets/bali.jpg";
@@ -14,16 +13,11 @@ import parisImage from "@/assets/paris.jpg";
 import dubaiImage from "@/assets/dubai.jpg";
 
 const Tours = () => {
-  const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState({ name: "", price: "" });
-
-  const handleBooking = (name: string, price: string) => {
-    setSelectedPackage({ name, price });
-    setBookingDialogOpen(true);
-  };
+  const navigate = useNavigate();
 
   const tourPackages = [
     {
+      id: "maldives-luxury-escape",
       name: "Maldives Luxury Escape",
       image: maldivesImage,
       duration: "7 Days / 6 Nights",
@@ -34,6 +28,7 @@ const Tours = () => {
       includes: ["Overwater Villa", "All Meals", "Water Sports", "Spa Treatment"]
     },
     {
+      id: "santorini-romance",
       name: "Santorini Romance",
       image: santoriniImage,
       duration: "5 Days / 4 Nights",
@@ -44,6 +39,7 @@ const Tours = () => {
       includes: ["Luxury Hotel", "Wine Tour", "Sunset Cruise", "Greek Cuisine"]
     },
     {
+      id: "bali-adventure-package",
       name: "Bali Adventure Package",
       image: baliImage,
       duration: "8 Days / 7 Nights",
@@ -54,6 +50,7 @@ const Tours = () => {
       includes: ["Temple Tours", "Rice Terrace Trek", "Surfing Lessons", "Cultural Shows"]
     },
     {
+      id: "swiss-alps-winter-wonderland",
       name: "Swiss Alps Winter Wonderland",
       image: swissAlpsImage,
       duration: "6 Days / 5 Nights",
@@ -64,6 +61,7 @@ const Tours = () => {
       includes: ["Ski Pass", "Mountain Lodge", "Swiss Train", "Cheese Factory"]
     },
     {
+      id: "parisian-elegance",
       name: "Parisian Elegance",
       image: parisImage,
       duration: "5 Days / 4 Nights",
@@ -74,6 +72,7 @@ const Tours = () => {
       includes: ["4-Star Hotel", "Eiffel Tower", "Louvre Museum", "Seine Cruise"]
     },
     {
+      id: "dubai-extravaganza",
       name: "Dubai Extravaganza",
       image: dubaiImage,
       duration: "6 Days / 5 Nights",
@@ -158,7 +157,7 @@ const Tours = () => {
 
                 <Button 
                   className="w-full bg-gradient-ocean hover:shadow-glow transition-all duration-300"
-                  onClick={() => handleBooking(tour.name, tour.price)}
+                  onClick={() => navigate(`/tours/${tour.id}`)}
                 >
                   Book This Tour
                 </Button>
@@ -182,7 +181,7 @@ const Tours = () => {
               size="lg"
               variant="outline"
               className="hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
-              onClick={() => handleBooking("Custom Package", "Contact for pricing")}
+              onClick={() => navigate("/contact")}
             >
               Request Custom Package
             </Button>
@@ -191,13 +190,6 @@ const Tours = () => {
       </section>
 
       <Footer />
-      
-      <BookingDialog
-        open={bookingDialogOpen}
-        onOpenChange={setBookingDialogOpen}
-        packageName={selectedPackage.name}
-        price={selectedPackage.price}
-      />
     </div>
   );
 };
