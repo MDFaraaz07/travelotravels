@@ -31,9 +31,9 @@ const About = () => {
   ];
 
   const team = [
-    { name: "Faraaz Khan", role: "CEO & Founder", expertise: "Luxury Travel Specialist" },
-    { name: "Kanishk Pandey", role: "Head of Operations", expertise: "Adventure Tours Expert" },
-    { name: "Armaan Khan", role: "Senior Travel Consultant", expertise: "Cultural Experiences" },
+    { name: "Faraaz Khan", role: "Partner & Co-Founder", expertise: "Luxury Travel Specialist" },
+    { name: "Kanishk Pandey", role: "Partner & Co-Founder", expertise: "Adventure Tours Expert" },
+    { name: "Armaan Khan", role: "Partner & Co-Founder", expertise: "Cultural Experiences" },
   ];
 
   return (
