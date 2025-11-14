@@ -34,6 +34,7 @@ export const Chatbot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [streamingText, setStreamingText] = useState("");
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const streamText = (text: string) => {
@@ -88,7 +89,10 @@ export const Chatbot = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ message: input }),
+          body: JSON.stringify({ 
+            message: input,
+            session_id: sessionId
+          }),
         }
       );
 
