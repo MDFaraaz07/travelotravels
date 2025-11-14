@@ -34,7 +34,18 @@ export const Chatbot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [streamingText, setStreamingText] = useState("");
-  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [sessionId] = useState<string>(() => {
+    try {
+      const existing = localStorage.getItem("chat_session_id");
+      if (existing) return existing;
+      const sid = `session_${(globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2))}_${Date.now()}`;
+      localStorage.setItem("chat_session_id", sid);
+      return sid;
+    } catch {
+      // Fallback if localStorage unavailable
+      return `session_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+    }
+  });
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const streamText = (text: string) => {
@@ -88,10 +99,12 @@ export const Chatbot = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-Session-Id": sessionId,
           },
           body: JSON.stringify({ 
             message: input,
-            session_id: sessionId
+            session_id: sessionId,
+            sessionId: sessionId
           }),
         }
       );
