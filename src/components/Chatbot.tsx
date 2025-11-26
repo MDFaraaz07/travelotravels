@@ -94,7 +94,7 @@ export const Chatbot = () => {
 
     try {
       const response = await fetch(
-        "https://easily-wise-cattle.ngrok-free.app/webhook/agency-chatbot",
+        "https://unparching-semivolcanically-alphonse.ngrok-free.dev/webhook/agency-chatbot",
         {
           method: "POST",
           headers: {
