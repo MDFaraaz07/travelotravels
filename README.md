@@ -1,73 +1,62 @@
-# Welcome to your Lovable project
+# TraveloTravels – AI-Powered Travel Agency Platform
 
-## Project info
+## 🚀 Overview
 
-**URL**: https://lovable.dev/projects/d5bc7ab3-4422-4d36-a714-83fd6f004946
+**TraveloTravels** is a modern, full-stack travel agency platform that seamlessly integrates a high-performance frontend with an advanced Autonomous AI Agent. The platform acts as a 24/7 travel consultant and booking manager, automating 90% of the customer booking lifecycle.
 
-## How can I edit this code?
+## ✨ Key Features
 
-There are several ways of editing your application.
+- **Autonomous AI Travel Consultant**: A 24/7 AI agent that handles user queries, captures necessary booking data, and provides personalized travel package consultations.
+- **Advanced n8n Automation Pipelines**: Multi-step agentic workflows that autonomously manage:
+  - Real-time package availability checks.
+  - Automated email confirmations.
+  - Dynamic PDF ticket generation.
+- **Seamless Integrations**: Built-in Gmail MCP (Model Context Protocol) integration, CRM capabilities, and Webhooks for event-driven processing.
+- **Comprehensive Admin Panel**: A centralized dashboard to oversee bookings, manage customers, and monitor AI agent activity.
+- **Modern User Interface**: Built with React 18, TypeScript, Tailwind CSS, and shadcn/ui for a highly responsive, premium, and visually appealing user experience.
+- **End-to-End Automation**: Autonomously triggers confirmation workflows without human intervention, ensuring a smooth and instantaneous customer journey.
 
-**Use Lovable**
+## 🛠️ Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d5bc7ab3-4422-4d36-a714-83fd6f004946) and start prompting.
+- **Frontend Core**: React 18, TypeScript, Vite
+- **Styling & UI**: Tailwind CSS, shadcn/ui, Lucide React
+- **Backend/Automation Engine**: n8n, AI Agents, Webhooks
+- **Integrations**: Gmail MCP (Model Context Protocol), custom CRM
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v18 or higher)
+- npm or yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MDFaraaz07/travelotravels.git
+   cd travelotravels
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   *The application will typically start on `http://localhost:8080` (or another available port). check your terminal output.*
 
-# Step 3: Install the necessary dependencies.
-npm i
+### n8n AI Agent Setup
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+*(Note: To utilize the full capabilities of the AI Agent and automated workflows, ensure your n8n instance is running, and the necessary webhooks are correctly configured to point to your frontend environment variables.)*
 
-**Edit a file directly in GitHub**
+## 🤝 Contributing
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/MDFaraaz07/travelotravels/issues).
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/d5bc7ab3-4422-4d36-a714-83fd6f004946) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+*Built with passion to revolutionize the travel booking experience through AI.*
